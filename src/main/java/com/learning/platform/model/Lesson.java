@@ -24,7 +24,7 @@ public class Lesson {
     // Many lessons belong to one course
     @ManyToOne(fetch = FetchType.LAZY)
     private Course course;
-    
+      
     @OneToMany(mappedBy = "lessons", fetch = FetchType.LAZY)
     private List<Assignment> assignments;  // Corrected to plural
 }
