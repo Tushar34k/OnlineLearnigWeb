@@ -9,6 +9,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import lombok.Data;
 
 @Entity
@@ -25,4 +26,7 @@ public class Enrollment {
 
     @OneToMany(mappedBy = "enrollment", fetch = FetchType.LAZY)
     private Set<Course> courses;  // Corrected to plural
+    
+    @OneToOne
+    private User user;
 }
