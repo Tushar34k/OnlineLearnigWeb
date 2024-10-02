@@ -26,5 +26,10 @@ public class ApiResponse<T> {
 	public static <T> ApiResponse<T> error(String message, HttpStatus httpStatus) {
 		return new ApiResponse<>(false, message, null, httpStatus);
 	}
+	
+	public boolean isSuccess()
+	{
+		return this.httpStatus.is2xxSuccessful();
+	}
 
 }
