@@ -22,7 +22,7 @@ public class MockTestService {
 
 	public ApiResponse<MockTest> createMockTest(MockTest mockTest) {
 		try {
-			if (mockTest != null) {
+			if (mockTestRepository.findByName(mockTest.getName()).isPresent()) {
 				return ApiResponse.error("mocktest alreday present", HttpStatus.CONFLICT);
 			} else {
 				MockTest mockTest1 = mockTestRepository.save(mockTest);

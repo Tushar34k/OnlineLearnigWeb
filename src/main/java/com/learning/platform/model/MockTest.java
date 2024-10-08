@@ -18,6 +18,7 @@ public class MockTest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    private String name;
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
