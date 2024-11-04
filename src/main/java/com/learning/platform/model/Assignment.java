@@ -20,5 +20,5 @@ public class Assignment {
     private String name;
     
     @ManyToMany
-    private Set<Lesson> lessons;  // Corrected to plural
+    private Set<Lesson> lesson;  // Corrected to plural
 }
