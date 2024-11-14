@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.platform.apiresponse.ApiResponse;
 import com.learning.platform.dto.QuizeDto;
-import com.learning.platform.model.Quize;
+import com.learning.platform.model.Quiz;
 import com.learning.platform.service.QuizeService;
 
 @RestController
@@ -23,15 +23,15 @@ public class QuizeController {
 	private QuizeService quizeService;
 
 	@GetMapping("/find/{id}")
-	public ResponseEntity<Quize> getQuize(@PathVariable Long id) {
-		ApiResponse<Quize> quApiResponse = quizeService.getQuizeById(id);
+	public ResponseEntity<Quiz> getQuize(@PathVariable Long id) {
+		ApiResponse<Quiz> quApiResponse = quizeService.getQuizeById(id);
 
 		return new ResponseEntity(quApiResponse, HttpStatus.OK);
 	}
 
 	@PostMapping("/save")
-	public ResponseEntity<Quize> createQuize(@RequestBody QuizeDto quize) {
-		ApiResponse<Quize> quResponse = quizeService.createQuize(quize);
+	public ResponseEntity<Quiz> createQuize(@RequestBody QuizeDto quize) {
+		ApiResponse<Quiz> quResponse = quizeService.createQuize(quize);
 		HttpStatus http = quResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT;
 
 		return new ResponseEntity(quResponse, http);

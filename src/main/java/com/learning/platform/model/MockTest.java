@@ -22,5 +22,5 @@ public class MockTest {
     private Date date;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private User user;  // No need for studentName, as it's redundant with User reference
+    private User user;
 }

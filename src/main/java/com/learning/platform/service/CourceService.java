@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.learning.platform.apiresponse.ApiResponse;
 import com.learning.platform.dto.CourceDto;
 import com.learning.platform.model.Course;
+import com.learning.platform.model.Institution;
 import com.learning.platform.repository.CourseRepository;
 
 @Service
@@ -31,6 +32,9 @@ public class CourceService {
 				course.setPrice(courceDto.getPrice());
 				course.setInstallment(courceDto.getInstallment());
 				course.setDuration(courceDto.getDuration());
+				Institution institution=new Institution();
+				    institution.setId(2L);
+				course.setInstitution(institution);
 				Course c = courseRepository.save(course);
 				return ApiResponse.success(c, "cource save", HttpStatus.CREATED);
 			}

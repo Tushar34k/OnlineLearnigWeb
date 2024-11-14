@@ -11,7 +11,7 @@ import com.learning.platform.apiresponse.ApiResponse;
 import com.learning.platform.customexception.UserNotFoundException;
 import com.learning.platform.dto.QuizeDto;
 import com.learning.platform.model.Course;
-import com.learning.platform.model.Quize;
+import com.learning.platform.model.Quiz;
 import com.learning.platform.repository.CourseRepository;
 import com.learning.platform.repository.QuizeRepository;
 
@@ -24,13 +24,13 @@ public class QuizeService {
 	@Autowired
 	private CourseRepository courseRepository;
 
-	public ApiResponse<Quize> getQuizeById(Long id) {
-		Quize quize = quizeRepository.findById(id).orElseThrow();
+	public ApiResponse<Quiz> getQuizeById(Long id) {
+		Quiz quize = quizeRepository.findById(id).orElseThrow();
 
 		return ApiResponse.success(quize, "quize are saved", HttpStatus.OK);
 	}
 
-	public ApiResponse<Quize> createQuize(QuizeDto quize) {
+	public ApiResponse<Quiz> createQuize(QuizeDto quize) {
 
 		try {
 
@@ -43,14 +43,14 @@ public class QuizeService {
 					.orElseThrow(() -> new UserNotFoundException("Course not found"));
 
 			// Create new quiz object
-			Quize quize1 = new Quize();
+			Quiz quize1 = new Quiz();
 			quize1.setName(quize.getName());
 			quize1.setMarks(quize.getMarks());
-			quize1.setDate(new Date());
+			quize1.setDate(quize.getDate() != null ? quize.getDate() : new Date());
 			quize1.setCourse(course);
 
 			// Save the quiz
-			Quize savedQuize = quizeRepository.save(quize1);
+			Quiz savedQuize = quizeRepository.save(quize1);
 
 			return ApiResponse.success(savedQuize, "Quiz saved", HttpStatus.CREATED);
 		} catch (Exception e) {

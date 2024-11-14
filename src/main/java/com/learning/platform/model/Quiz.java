@@ -12,7 +12,7 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Quize {  // Corrected class name
+public class Quiz {  // Corrected class name from 'Quize'
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

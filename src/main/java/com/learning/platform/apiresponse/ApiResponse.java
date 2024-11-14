@@ -2,6 +2,9 @@ package com.learning.platform.apiresponse;
 
 import org.springframework.http.HttpStatus;
 
+import lombok.Data;
+
+@Data
 public class ApiResponse<T> {
 
 	private boolean success;

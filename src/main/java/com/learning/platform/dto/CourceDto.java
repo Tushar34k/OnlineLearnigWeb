@@ -13,5 +13,8 @@ public class CourceDto {
     private int duration;
     private Double price;
     private Double installment;
+    
+    
+    
 
 }

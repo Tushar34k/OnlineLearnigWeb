@@ -12,5 +12,7 @@ public class QuizeDto {
 	private double marks;
 	
 	private Long cource_id;
+	
+	private Date date;
 
 }

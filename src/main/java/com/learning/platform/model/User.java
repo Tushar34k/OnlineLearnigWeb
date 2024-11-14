@@ -1,8 +1,10 @@
 package com.learning.platform.model;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.learning.platform.enums.Role;
 
 import jakarta.persistence.Entity;
@@ -14,39 +16,52 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
-import jakarta.persistence.OneToOne;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"courses", "mockTests"})  // Ignore courses and mockTests during serialization
 public class User {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-	@NotBlank
-	private String name;
+    @NotBlank
+    private String name;
 
-	private String address;
+    private String address;
 
-	private String password; // Ensure password is hashed before storing
+    @NotBlank
+    private String password; // Hash passwords before storing them
 
-	@Email
-	@NotBlank
-	private String email;
+    @Email
+    @NotBlank
+    private String email;
 
-	@Enumerated(EnumType.STRING)
-	private Role role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
-	@ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
-	private Set<Course> courses;
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    private Set<Course> courses;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
-	private List<MockTest> mockTests;
-	
-	@OneToOne(mappedBy = "user")
-	private Enrollment enrollments;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<MockTest> mockTests;
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        return Objects.equals(id, other.id);
+    }
 }

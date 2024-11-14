@@ -1,6 +1,9 @@
 package com.learning.platform.service;
 
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,6 +12,8 @@ import org.springframework.stereotype.Service;
 import com.learning.platform.apiresponse.ApiResponse;
 import com.learning.platform.customexception.UserNotFoundException;
 import com.learning.platform.dto.UserDto;
+import com.learning.platform.model.Course;
+import com.learning.platform.model.Enrollment;
 import com.learning.platform.model.User;
 import com.learning.platform.repository.UserRepository;
 
@@ -45,5 +50,38 @@ public class UserService {
 			return ApiResponse.error("An error occurred: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
+
+	// getUserEnrollment
+	public Enrollment getUserEnrollment(Long userId) {
+		// Fetch the user by ID or throw an exception if not found
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+
+		// Retrieve the user's enrollments (assuming one-to-one or single enrollment)
+		Enrollment enrollment = user.getEnrollments(); // Assuming there's a single enrollment
+
+		// Check if enrollment is null
+//		if (enrollment == null) {
+//			return ApiResponse.error("No enrollment found for user", HttpStatus.NOT_FOUND);
+//		}
+
+		// Return success response with the enrollment details
+		return enrollment;
+	}
+
+// here i have to create some changes so it give me an empty set so i try to modify 
+	// getUserEnrollmentCourses
+	public Set<Course> getUserEnrollmentCourses(Long userId) {
+		// Fetch the user by ID or throw an exception if not found
+		User user = userRepository.findById(userId).orElseThrow(() -> new UserNotFoundException("User not found"));
+
+		// Get the course from the enrollment
+		Set<Course> course = user.getCourses();
+
+		// Return success response with the course
+		return course;
+	}
+
+//	getUserAssignment
+// getUserPay	
 
 }

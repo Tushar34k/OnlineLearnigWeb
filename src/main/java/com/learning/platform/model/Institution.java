@@ -3,15 +3,16 @@ package com.learning.platform.model;
 import java.util.Set;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
 @Data
-public class Assignment {
+public class Institution {  // Corrected class name from 'Instutient'
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -19,6 +20,6 @@ public class Assignment {
 
     private String name;
 
-    @ManyToMany
-    private Set<Lesson> lessons;
+    @OneToMany(fetch = FetchType.LAZY)
+    private Set<Course> courses;
 }

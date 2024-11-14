@@ -2,7 +2,7 @@ package com.learning.platform.model;
 
 import java.util.Date;
 import java.util.Set;
-
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -16,6 +16,7 @@ import lombok.Data;
 
 @Entity
 @Data
+@JsonIgnoreProperties({"users"})  // Ignore users during serialization
 public class Course {
 
     @Id
@@ -29,15 +30,15 @@ public class Course {
     private Double price;
     private Double installment;
 
-    @ManyToMany(cascade = CascadeType.PERSIST, fetch = FetchType.LAZY) // Avoid CascadeType.ALL in ManyToMany
+    @ManyToOne(fetch = FetchType.LAZY)  // Many courses can belong to one institution
+    private Institution institution;  // Add institution reference in Course
+
+    @ManyToMany(fetch = FetchType.LAZY)
     private Set<User> users;
 
     @OneToMany(mappedBy = "course", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private Set<Lesson> lessons;  // Corrected to plural
+    private Set<Lesson> lessons;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
-    private Set<Quize> quizzes;  // Corrected class and field name
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Enrollment enrollment;
+    private Set<Quiz> quizzes;
 }

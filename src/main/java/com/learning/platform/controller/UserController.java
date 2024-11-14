@@ -1,5 +1,7 @@
 package com.learning.platform.controller;
 
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -12,6 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.learning.platform.apiresponse.ApiResponse;
 import com.learning.platform.dto.UserDto;
+import com.learning.platform.model.Course;
+import com.learning.platform.model.Enrollment;
 import com.learning.platform.model.User;
 import com.learning.platform.service.UserService;
 
@@ -36,6 +40,25 @@ public class UserController {
 		HttpStatus status = userResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT;
 		return new ResponseEntity(userResponse, status);
 
+	}
+
+	@GetMapping("/enrollment/{userId}")
+	public ResponseEntity<Enrollment> getEnrollmentByUser(@PathVariable Long userId) {
+		// Fetch the enrollment from the service
+		Enrollment enroll = userService.getUserEnrollment(userId);
+
+		// Determine appropriate HTTP status based on success/failure
+//		HttpStatus http = enroll.isSuccess() ? HttpStatus.OK : HttpStatus.NOT_FOUND;
+
+		// Return the response entity
+		return new ResponseEntity(enroll, HttpStatus.OK);
+	}
+
+	@GetMapping("/cources/{id}")
+	public ResponseEntity<Course> getCourceByUser(@PathVariable Long id) {
+		Set<Course> courses = userService.getUserEnrollmentCourses(id);
+
+		return new ResponseEntity(courses, HttpStatus.OK);
 	}
 
 }

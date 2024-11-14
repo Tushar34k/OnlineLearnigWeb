@@ -11,8 +11,8 @@ import com.learning.platform.model.User;
 
 public interface EnrollmentRepository extends JpaRepository<Enrollment, Long> {
 
-	Optional<Enrollment> findByName(String name);
+//	Optional<Enrollment> findByName(String name);
 	
-	 boolean existsByUserAndCourses(User user, Set<Course> course);
+//	 boolean existsByUserAndCourses(User user, Set<Course> course);
 
 }
