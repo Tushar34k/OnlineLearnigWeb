@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class LearnigmaterialApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(LearnigmaterialApplication.class, args);
+		 SpringApplication.run(LearnigmaterialApplication.class, args);
 	}
 
 }
